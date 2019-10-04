@@ -1,0 +1,36 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: hsla(0,0%,100%,.7);
+  background-color: #24292e;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-link {
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.header-link:hover {
+  text-decoration: none; 
+  color: #bbb;
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "repo-traffic",
+  "profile": "timConsole",
+  "regions": ["us-east-1"],
+  "hooks": {
+    "build": "npm run build"
+  },
+  "error_pages": {
+    "variables": {
+      "support_email": "timqian@t9t.io",
+      "color": "#228ae6"
+    }
+  },
+  "stages": {
+    "production": {
+      "domain": "repo-analytics.t9t.io"
+    },
+    "staging": {
+      "domain": "repo-analytics-staging.t9t.io"
+    }
+  },
+  "lambda": {
+    "memory": 1536
+  }
+}
