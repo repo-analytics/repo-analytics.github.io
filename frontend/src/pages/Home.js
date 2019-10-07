@@ -1,14 +1,18 @@
 import React from "react";
 import ProjectCard from '../components/ProjectCard';
-import { Link } from "react-router-dom";
 import './Home.css'
 
-function Home () {
+function Home ({user}) {
  return (
   <div>
     <div className="home-hero">
       <h1 className="home-slogan">Thorough analytics for your GitHub repos</h1>
-      <button className="home-signin-btn">Sign in with GitHub</button>
+      {
+        !user.username ?
+        <a className="home-signin-btn" href="https://repo-analytics.t9t.io/auth/github">Sign in with GitHub</a>
+        : ''
+      }
+
       <div className="home-features">
         <div className="home-feature">
           <h4 className="home-feature-title">Better traffic data</h4>
@@ -27,7 +31,6 @@ function Home () {
     </div>
 
     <div className="home-container">
-      
       <h2 className="home-example-title">Example repos using <strong>Repo Analytics</strong></h2>
       <div className="home-examples">
         <div className="home-box">

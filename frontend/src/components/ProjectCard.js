@@ -13,7 +13,7 @@ const ProjectCard = ({username, projectName, visitData}) => (
     </strong>
   </div>
 
-  <div class="project-trend">
+  <div className="project-trend">
     <Trend
       smooth
       autoDraw

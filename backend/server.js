@@ -3,7 +3,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
+const jwt = require('jwt-simple');
 const UserDao = require('./db/User');
+const config = require('./secret.json');
 
 const app = express();
 
@@ -14,12 +16,41 @@ app.use(passport.initialize());
 passport.use(
   new GitHubStrategy(
     {
-      clientID: '4bb4db66720ab9d2513f',
-      clientSecret: '4e9ef24986e479a69bd3652c54010a0de2d88b70',
+      clientID: config.github.clientID,
+      clientSecret: config.github.clientSecret,
       scope: 'user:email,repo',
       callbackURL: 'https://repo-analytics.t9t.io/auth/github/callback',
     },
-    (accessToken, refreshToken, profile, cb) => {
+    async (accessToken, refreshToken, profile, cb) => {
+      /**
+       * {
+       *   id: '5512552',
+       *   displayName: 'Tim Qian',
+       *   username: 'timqian',
+       *   profileUrl: 'https://github.com/timqian',
+       *   emails: [
+       *     { value: 'timqian92@gmail.com', primary: false, verified: true },
+       *     { value: 'timqian92@qq.com', primary: true, verified: false },
+       *     { value: 'timqian@shu.edu.cn', primary: false, verified: true }
+       *   ],
+       *   photos: [{ value: 'https://avatars3.githubusercontent.com/u/5512552?v=4' }],
+       * }
+       */
+      const {
+        id, username, displayName, emails, photos,
+      } = profile;
+      const user = await UserDao.get({ username });
+      const userToSave = {
+        username,
+        displayName,
+        accessToken,
+        email: emails.filter(email => email.primary === true)[0].value,
+        photo: photos[0].value,
+      };
+      if (!user) {
+        await UserDao.put(userToSave);
+      }
+      profile.accessToken = accessToken
       cb(null, profile);
     },
   ),
@@ -34,37 +65,18 @@ app.get(
   '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login', session: false }),
   async (req, res) => {
-    /**
-     * {
-     *   id: '5512552',
-     *   displayName: 'Tim Qian',
-     *   username: 'timqian',
-     *   profileUrl: 'https://github.com/timqian',
-     *   emails: [
-     *     { value: 'timqian92@gmail.com', primary: false, verified: true },
-     *     { value: 'timqian92@qq.com', primary: true, verified: false },
-     *     { value: 'timqian@shu.edu.cn', primary: false, verified: true }
-     *   ],
-     *   photos: [{ value: 'https://avatars3.githubusercontent.com/u/5512552?v=4' }],
-     * }
-     */
     const {
       id, username, displayName, emails, photos,
     } = req.user;
-    const user = await UserDao.get({ githubId: id });
-    const userToSave = {
-      githubId: id,
-      username,
-      name: displayName,
-      email: emails.filter(email => email.primary === true)[0].value,
-      photo: photos[0].value,
-    };
-    if (!user) {
-      await UserDao.put(userToSave);
-    }
-    res.redirect(`https://repo-analytics.github.io`);
+
+    const token = jwt.encode({ username }, config.jwtSecret);
+    res.redirect(`https://repo-analytics.github.io/${username}?username=${username}&photo=${photos[0].value}&token=${token}`);
   },
 );
+
+app.get('/', (req, res) => {
+  res.json('hey')
+});
 
 const { PORT = 8080 } = process.env;
 app.listen(PORT);
