@@ -5,6 +5,8 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const jwt = require('jwt-simple');
 const UserDao = require('./db/User');
+const RepoDao = require('./db/Repo');
+const TrafficDao = require('./db/Traffic');
 const config = require('./secret.json');
 
 const app = express();
@@ -73,6 +75,32 @@ app.get(
     res.redirect(`https://repo-analytics.github.io/${username}?username=${username}&photo=${photos[0].value}&token=${token}`);
   },
 );
+
+app.get('/user/:username', async (req, res) => {
+  const username = req.params.username;
+  const repos = await RepoDao.getAllForUser({ username });
+  res.json({
+    repos,
+  })
+});
+
+app.get('/repo/:org/:repo', async (req, res) => {
+  const org = req.params.org;
+  const repo = req.params.repo;
+  const repoPath = `${org}/${repo}`;
+  const ISOToday = new Date().toISOString().slice(0, 10);
+  const trafficTodayArr = await TrafficDao.batchGet({ repo: repoPath, dateArr: [ISOToday] });
+  const trafficToday = trafficToday[0];
+  if (trafficToday)
+
+  res.json({
+    traffic: trafficToday,
+  })
+});
+
+app.post('/repo/add', async (req, res) => {
+
+})
 
 app.get('/', (req, res) => {
   res.json('hey')

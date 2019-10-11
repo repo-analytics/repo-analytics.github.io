@@ -83,6 +83,7 @@
 
 .home-box {
   width: 300px;
+  max-width: 430px;
   height: 180px;
   margin: 8px;
   flex-grow: 100;

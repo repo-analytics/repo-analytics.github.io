@@ -1,0 +1,66 @@
+.repo-container {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 0 8px;
+}
+
+.repo-header {
+  width: 100vw;
+  height: 120px;
+  background-color: #fafbfc;
+  border-bottom: 1px solid #e1e4e8;
+  position: relative;
+}
+
+.repo-title {
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 22px;
+}
+
+.repo-nav {
+  position: absolute;
+  bottom: -1px;
+}
+
+.repo-nav a {
+  color: #24292e;
+  float: left;
+  padding: 7px 15px 8px;
+  color: #586069;
+  white-space: nowrap;
+  border-radius: 3px 3px 0 0;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 3px solid transparent;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.repo-nav .selected {
+  background-color: #fff;
+  border-left: 1px solid rgb(225, 228, 232);
+  border-right: 1px solid rgb(225, 228, 232);
+  border-top: 3px solid #e36209;
+  border-bottom: 1px solid white;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+.date-picker-container a {
+  padding: 0 10px;
+  font-weight: 550;
+  cursor: pointer;
+}
+.date-picker-container .selected {
+  color: black;
+}

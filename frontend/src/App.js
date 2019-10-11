@@ -3,26 +3,31 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 import Home from './pages/Home';
 import User from './pages/User';
+import Repo from './pages/Repo';
 import queryString from 'query-string';
+import userSignedIn from './utils/userSignedIn';
 
 export default function App() {
-  let user = {};
+  let user = userSignedIn.get();
 
   if (window.location.search.length > 0) {
     try {
       const userFromSearch = queryString.parse(window.location.search);
-      window.localStorage.setItem('user', JSON.stringify(userFromSearch));
+      userSignedIn.set({
+        username: userFromSearch.username,
+        token: userFromSearch.token,
+        photo: userFromSearch.photo
+      });
+      user = userSignedIn.get();
       window.history.replaceState({}, document.title, window.location.origin + window.location.pathname);
-      user = userFromSearch;
     } catch (err) {
       console.log('bad query string');
     }
-  } else {
-    const userRaw = window.localStorage.getItem('user');
-    if (userRaw) {
-      const userFromLocalStorage = JSON.parse(userRaw);
-      if(userFromLocalStorage.username) user = userFromLocalStorage;
-    }
+  }
+
+  function signout () {
+    userSignedIn.remove();
+    window.location.reload();
   }
 
   return (
@@ -36,13 +41,13 @@ export default function App() {
         <div>
           {
             user.username ? 
-            <div class="dropdown">
+            <div className="dropdown">
               <a className="header-link" href>{user.username} <span style={{fontSize:'10px'}}>▼</span></a>
-              <div class="dropdown-content">
+              <div className="dropdown-content">
                 <a href={`/${user.username}`}>Your profile</a>
-                <a href="#">Add repo</a>
+                <a href={`/${user.username}`}>Add repo</a>
                 <hr/>
-                <a href="#">Sign out</a>
+                <a href onClick={signout} >Sign out</a>
               </div>
             </div>
             :
@@ -59,7 +64,7 @@ export default function App() {
       <Route path="/topics" component={Topics} />
 
       <Route exact path="/:username" component={User} />
-      <Route exact path="/:username/:repo" component={User} />
+      <Route exact path="/:username/:repo" component={Repo} />
     </Router>
   );
 }

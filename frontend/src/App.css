@@ -61,6 +61,7 @@ a:hover {
   padding: 5px 16px;
   text-decoration: none;
   display: block;
+  cursor: pointer;
 }
 
 /* Change color of dropdown links on hover */

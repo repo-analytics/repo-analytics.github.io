@@ -19,6 +19,6 @@ Add config file
     "clientID": "",
     "clientSecret": ""
   },
-  "jwtSecret": "de5-k3f?$g"
+  "jwtSecret": ""
 }
 ```

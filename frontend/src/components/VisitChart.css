@@ -1,0 +1,20 @@
+.chart-container {
+  border: 1px solid #d1d5da;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.svg-container {
+  height: 270px;
+}
+
+.chart-container-header {
+  display: block;
+  padding: 13px 10px 14px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 17px;
+  background-color: #f6f8fa;
+  border-bottom: 1px solid rgba(27,31,35,.15);
+  border-radius: 3px 3px 0 0;
+}

@@ -57,11 +57,25 @@ async function put({
   }).promise();
 }
 
+async function scan() {
+  const data = await dynamodb.scan({
+    TableName: 'repo-analytics-user',
+    AttributesToGet: [
+      'username',
+      'accessToken'
+    ],
+  }).promise();
+
+  // FIXME: if user data larger than 1MB data, we need to handle pagination
+  return data.Items;
+}
+
 module.exports = {
   createTable,
   deleteTable,
   get,
   put,
+  scan,
 };
 
 
@@ -69,13 +83,16 @@ module.exports = {
 // (async () => {
 //   // await createTable();
 //   // await new Promise((r) => setTimeout(r, 1000));
-//   await put({
-//     username: 'timqn',
-//     email: 'timqian@t9t.io',
-//     displayName: 'timqian', photo:'abc',
-//   });
-//   const item = await get({
-//     username: 'timqian',
-//   });
-//   console.log(item);
+//   // await put({
+//   //   username: 'timqn',
+//   //   email: 'timqian@t9t.io',
+//   //   displayName: 'timqian', photo:'abc',
+//   // });
+//   // const item = await get({
+//   //   username: 'timqian',
+//   // });
+//   // console.log(item);
+
+//   // const scanRes = await scan();
+//   // console.log(scanRes)
 // })();

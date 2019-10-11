@@ -34,16 +34,16 @@ function Home ({user}) {
       <h2 className="home-example-title">Example repos using <strong>Repo Analytics</strong></h2>
       <div className="home-examples">
         <div className="home-box">
-          <ProjectCard username="repo-analytics" projectName="repo-analytics.github.io" />
+          <ProjectCard repo="repo-analytics/repo-analytics.github.io" username="timqian" createdAt="2019-10-09-"/>
         </div>
         <div className="home-box">
-          <ProjectCard username="timqian" projectName="chart.xkcd" />
+          <ProjectCard repo="timqian/chart.xkcd" username="timqian" createdAt="2019-10-09-"/>
         </div>
         <div className="home-box">
-          <ProjectCard username="t9tio" projectName="open-source-jobs" />
+          <ProjectCard repo="t9tio/open-source-jobs" username="timqian" createdAt="2019-10-09-"/>
         </div>
         <div className="home-box">
-          <ProjectCard username="timqian" projectName="star-history" />
+          <ProjectCard repo="timqian/star-history" username="timqian" createdAt="2019-10-09-"/>
         </div>
       </div>
     </div>
