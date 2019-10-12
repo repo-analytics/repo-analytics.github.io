@@ -84,10 +84,10 @@ module.exports = {
 // (async () => {
 //   // await createTable();
 //   // await new Promise((r) => setTimeout(r, 1000));
-//   // await put({
-//   //   username: 'timqian',
-//   //   repo: 'timqian/chart.xkcd',
-//   // });
+//   await put({
+//     username: 'timqian',
+//     repo: 'repo-analytics/repo-analytics.github.io',
+//   });
 //   // const items = await getAllForUser({
 //   //   username: 'timqian',
 //   // });

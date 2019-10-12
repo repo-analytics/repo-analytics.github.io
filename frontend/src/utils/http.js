@@ -30,7 +30,7 @@ const getUserRepos = async (username) => {
  */
 const getRepoTraffic = async ({repoPath}) => {
   const res = await http.get(`/repo/${repoPath}`);
-  return res.data.traffic[0];
+  return res.data.traffic;
 }
 
 export default {

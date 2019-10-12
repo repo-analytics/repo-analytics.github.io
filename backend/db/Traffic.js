@@ -37,7 +37,7 @@ async function deleteTable() {
   await dynamodb.deleteTable({ TableName: 'repo-analytics-analytics' }).promise();
 }
 
-async function batchGet({ repo, dateArr }) {
+async function batchGetViewAndClones({ repo, dateArr }) {
   const keys = dateArr.map(date => ({
     repo: { S: repo },
     date: { S: date }
@@ -47,10 +47,29 @@ async function batchGet({ repo, dateArr }) {
     RequestItems: {
       "repo-analytics-analytics": {
         Keys: keys,
+        AttributesToGet: [
+          'repo',
+          'date',
+          'views',
+          'clones',
+        ],
       }
     }
   }).promise();
   return Responses["repo-analytics-analytics"];
+}
+
+async function getLatest({ repo }) {
+  const { Items } = await dynamodb.query({
+    TableName: 'repo-analytics-analytics',
+    KeyConditionExpression: 'repo = :repo',
+    ExpressionAttributeValues: {
+      ':repo': { S: repo },
+    },
+    Limit: 1,
+    ScanIndexForward: false,
+  }).promise();
+  return Items[0];
 }
 
 async function put({
@@ -74,8 +93,8 @@ async function put({
 module.exports = {
   createTable,
   deleteTable,
-  
-  batchGet,
+  getLatest,
+  batchGetViewAndClones,
   put,
 };
 
@@ -143,4 +162,7 @@ module.exports = {
 //   // const item = await batchGet({ repo: 'timqian/chart.xkcd', dateArr: ['2019-10-09']})
 
 //   // console.log(item);
+
+//   // const latestItem = await getLatest({ repo: 'timqian/chart.xkcd' });
+//   // console.log(latestItem)
 // })();

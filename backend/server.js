@@ -8,6 +8,8 @@ const UserDao = require('./db/User');
 const RepoDao = require('./db/Repo');
 const TrafficDao = require('./db/Traffic');
 const config = require('./secret.json');
+const trafficDateRangeToDateArr = require('./utils/trafficDateRangeToDateArr');
+const getUniqueListBy = require('./utils/getUniqueListBy');
 
 const app = express();
 
@@ -84,20 +86,67 @@ app.get('/user/:username', async (req, res) => {
   })
 });
 
+/**
+ * @returns - grouped: vistit and clone data; 14 days: referrer and paths data
+ * {
+ *   views: [{
+ *     timestamp: '2019-03-12',
+ *     count: 500,
+ *     unique: 300.
+ *   }],
+ *   clones: [{
+ *     timestamp: '2019-03-12',
+ *     count: 500,
+ *     unique: 300.
+ *   }],
+ * }
+ */
 app.get('/repo/:org/:repo', async (req, res) => {
   const org = req.params.org;
   const repo = req.params.repo;
   const repoPath = `${org}/${repo}`;
-  const ISOToday = new Date().toISOString().slice(0, 10);
-  const trafficTodayArr = await TrafficDao.batchGet({ repo: repoPath, dateArr: [ISOToday] });
-  const trafficToday = trafficToday[0];
-  if (trafficToday)
+
+  const latestTrafficData = await TrafficDao.getLatest({ repo: repoPath });
+  const trafficObj = {
+    date: latestTrafficData.date.S, // date when latest traffic data created
+    repoCreatedAt: latestTrafficData.repoCreatedAt.S, // when do we start to collect data
+    views: JSON.parse(latestTrafficData.views.S), // all data
+    clones: JSON.parse(latestTrafficData.clones.S), // all data
+    referrers: JSON.parse(latestTrafficData.referrers.S), // last 14 days
+    paths: JSON.parse(latestTrafficData.paths.S), // last 14 days
+  }
+
+  // 4. combine views and clones data - how, choose larger count if timestamp is the same
+  // assuming traffic data exists for everyday
+  const dateArr = trafficDateRangeToDateArr(trafficObj.repoCreatedAt.slice(0,10), trafficObj.date);
+
+  // No need to get more clone and view data
+  if (!dateArr) {
+    res.json({
+      traffic: trafficObj,
+    });
+    return;
+  }
+
+  const batchRes = await TrafficDao.batchGetViewAndClones({ repo: repoPath, dateArr });
+
+  for (const traffic of batchRes) {
+    const clones = JSON.parse(traffic.clones.S);
+    const views = JSON.parse(traffic.views.S);
+    trafficObj.clones.unshift(...clones);
+    trafficObj.views.unshift(...views);
+  }
+
+  trafficObj.clones = getUniqueListBy(trafficObj.clones, 'timestamp');
+  trafficObj.views = getUniqueListBy(trafficObj.views, 'timestamp');
 
   res.json({
-    traffic: trafficToday,
-  })
+    traffic: trafficObj,
+  });
+
 });
 
+// TODO: 1. auth 2. test if the repo belones to user
 app.post('/repo/add', async (req, res) => {
 
 })

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import chartXkcd from 'chart.xkcd';
 
 const VisitChart = ({ trafficData }) => {
-  const clonesArr = JSON.parse(trafficData.clones.S);
+  const clonesArr = trafficData.clones;
 
   const totalViewsData = clonesArr.map(clones => ({
     x: clones.timestamp,

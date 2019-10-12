@@ -24,7 +24,7 @@ const ProjectCard = ({repo, createdAt, username, visitData}) => (
     </div>
 
     <div className="card-footer">
-      Recoding analytics since {createdAt.slice(0, 10)} by <a href={`/${username}`}>{username}</a>
+      Recoding analytics since {createdAt.slice(0, 10)}
     </div>
   </div>
 );

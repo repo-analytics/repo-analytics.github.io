@@ -15,7 +15,7 @@ function Repo ({ match }) {
   const repo = match.params.repo;
   const [trafficData, setTrafficData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  
+
   useEffect(() => {
     setIsLoading(true);
     http.getRepoTraffic({
@@ -44,14 +44,12 @@ function Repo ({ match }) {
         </div>
       </div>
       <div className="repo-container">
-        <div className="date-picker-container">
-          {/* <a href className="selected">All</a>
-          <a href>Last month</a>
-          <a href>Last 14 days</a> */}
-          Recoding analytics since
-          <br/>
-          updated at
-        </div>
+        {trafficData.repoCreatedAt ? 
+          <div className="dates-container">
+            <p>Updated at {trafficData.date}</p>
+            <p>Recoding analytics since {trafficData.repoCreatedAt.slice(0, 10)}</p>
+          </div> 
+          : ''}
         { isLoading ? <RepoLoader/> : ''}
         { trafficData.views ? <VisitChart trafficData={trafficData}/>  : ''}
         { trafficData.clones ? <CloneChart trafficData={trafficData}/>  : ''}

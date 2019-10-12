@@ -50,17 +50,18 @@ a:hover {
   border-bottom: 1px solid white;
 }
 
-.date-picker-container {
+.dates-container {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 0;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 15px 0;
+  font-weight: 400;
+  font-size: 12px;
+  color: #888
 }
 
-.date-picker-container a {
-  padding: 0 10px;
-  font-weight: 550;
-  cursor: pointer;
-}
-.date-picker-container .selected {
-  color: black;
+.dates-container p {
+  margin: 0;
+  padding: 2px 0;
 }

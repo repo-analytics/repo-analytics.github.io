@@ -3,7 +3,7 @@ import chartXkcd from 'chart.xkcd';
 import './VisitChart.css';
 
 const VisitChart = ({ trafficData }) => {
-  const viewsArr = JSON.parse(trafficData.views.S);
+  const viewsArr = trafficData.views;
 
   const totalViewsData = viewsArr.map(views => ({
     x: views.timestamp,
