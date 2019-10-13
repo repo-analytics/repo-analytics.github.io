@@ -4,13 +4,14 @@ import ProjectCard from '../components/ProjectCard';
 import './User.css';
 import userSignedIn from '../utils/userSignedIn';
 import CardLoader from '../components/CardLoader';
+import AddRepo from '../components/AddRepo';
 
 function User ({ match }) {
   const username = match.params.username;
   const userLocal = userSignedIn.get();
   const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   useEffect(() => {
     setIsLoading(true);
     http.getUserRepos(username)
@@ -18,7 +19,7 @@ function User ({ match }) {
         setRepos(repos);
         setIsLoading(false);
       });
-  }, [])
+  }, []);
 
   return (
     <div className="home-container">
@@ -41,12 +42,7 @@ function User ({ match }) {
 
         {
           userLocal.username === username ?
-          <div className="home-box">
-            <div className="add-new">
-              <input placeholder={`e.g. ${username}/repo-name`} className="repo-input"></input>
-              <button  className="repo-add-btn">Add repo</button>
-            </div>
-          </div> : ''
+            <AddRepo /> : ''
         }
       </div>
     </div>

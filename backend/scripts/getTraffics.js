@@ -46,6 +46,7 @@ async function run() {
   // ---- 3. query and store to db ----
   for(let i = 0; i < repoArr.length; i++) {
     const repo = repoArr[i];
+    console.log('Fetching', repo.repo);
     const http = axios.create({
       baseURL: 'https://api.github.com/',
       timeout: 10000,
@@ -69,7 +70,7 @@ async function run() {
       referrers: trafficRes[2].data,
       paths: trafficRes[3].data,
       repoCreatedAt: repo.createdAt,
-    })
+    });
   }
 }
 

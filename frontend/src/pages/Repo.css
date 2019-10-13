@@ -6,16 +6,14 @@
 
 .repo-header {
   width: 100vw;
-  height: 120px;
   background-color: #fafbfc;
   border-bottom: 1px solid #e1e4e8;
   position: relative;
 }
 
 .repo-title {
-  margin: 0;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 50px;
   font-size: 22px;
 }
 

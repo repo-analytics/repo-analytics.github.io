@@ -2,6 +2,9 @@
  * {
  *   username: 'timqian',
  *   email: 'timqian@t9t.io',
+ *   accessToken: '',
+ *   displayName: '', 
+ *   photo: '',
  *   createdAt: '',
  * }
  */

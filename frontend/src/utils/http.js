@@ -33,7 +33,15 @@ const getRepoTraffic = async ({repoPath}) => {
   return res.data.traffic;
 }
 
+const addRepo = async ({username, repoPath, token}) => {
+  const res = await http.post('/repo/add', {
+    username, repoPath, token,
+  });
+  return res.data;
+}
+
 export default {
   getUserRepos,
   getRepoTraffic,
+  addRepo,
 };

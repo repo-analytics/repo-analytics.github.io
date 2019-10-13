@@ -10,6 +10,7 @@ const TrafficDao = require('./db/Traffic');
 const config = require('./secret.json');
 const trafficDateRangeToDateArr = require('./utils/trafficDateRangeToDateArr');
 const getUniqueListBy = require('./utils/getUniqueListBy');
+const getTrafficOfRepoAndSave = require('./utils/getTrafficOfRepoAndSave');
 
 const app = express();
 
@@ -146,8 +147,38 @@ app.get('/repo/:org/:repo', async (req, res) => {
 
 });
 
-// TODO: 1. auth 2. test if the repo belones to user
+
 app.post('/repo/add', async (req, res) => {
+  const { username, repoPath, token } = req.body;
+  // 1. test if the user is allowed to add repo to username
+  let decoded;
+  try {
+    decoded = jwt.decode(token, config.jwtSecret);
+  } catch (error) {
+    res.status(400).json('bad token');
+    return;
+  }
+  if (decoded.username !== username) {
+    res.status(400).json('token user mismatch');
+    return;
+  }
+
+  // 2. test if user being able to get traffic of the repo
+  const user = await UserDao.get({ username });
+  const githubToken = user.accessToken.S;
+  try {
+    await getTrafficOfRepoAndSave({ repoPath, token: githubToken });
+    // create repo
+    await RepoDao.put({
+      username,
+      repo: repoPath,
+    })
+    res.json('ok');
+  } catch (e) {
+    console.log(e)
+    res.status(400).json('github token permission insufficient');
+  }
+
 
 })
 
