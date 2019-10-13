@@ -17,11 +17,14 @@
   height: 100%;
   position: relative;
   top: -26px;
+  z-index: 0;
 }
 
 .card-description a {
   font-weight: 500;
   font-size: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .card-description a:hover {
