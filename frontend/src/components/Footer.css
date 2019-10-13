@@ -1,0 +1,26 @@
+footer {
+  margin: 80px 0;
+  border-top: 1px solid #dfe2e5;
+  padding: 20px 8px;
+
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-content {
+  font-size: 15px;
+  color: #586069;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
+
+
+.footer-contacts a {
+  font-size: 15px;
+  color: #586069;
+  padding-left: 4px;
+}
+

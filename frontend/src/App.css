@@ -1,3 +1,12 @@
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -18,23 +27,13 @@ header {
   font-weight: 600;
   color: #fff;
   white-space: nowrap;
-  text-decoration: none;
   cursor: pointer;
 }
 
 .header-link:hover {
-  text-decoration: none; 
   color: #bbb;
 }
 
-a {
-  color: #0366d6;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
 
 .dropdown {
   position: relative;
@@ -59,7 +58,6 @@ a:hover {
   color: black;
   background-color: #f9f9f9;
   padding: 5px 16px;
-  text-decoration: none;
   display: block;
   cursor: pointer;
 }

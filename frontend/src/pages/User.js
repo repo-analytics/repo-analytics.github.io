@@ -5,6 +5,7 @@ import './User.css';
 import userSignedIn from '../utils/userSignedIn';
 import CardLoader from '../components/CardLoader';
 import AddRepo from '../components/AddRepo';
+import Footer from '../components/Footer';
 
 function User ({ match }) {
   const username = match.params.username;
@@ -45,6 +46,8 @@ function User ({ match }) {
             <AddRepo /> : ''
         }
       </div>
+
+      <Footer />
     </div>
   );
 }

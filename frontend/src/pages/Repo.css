@@ -17,6 +17,10 @@
   font-size: 22px;
 }
 
+.repo-title a:hover {
+  text-decoration: underline;
+}
+
 .repo-nav {
   position: absolute;
   bottom: -1px;
@@ -34,10 +38,6 @@
   border-top: 3px solid transparent;
   border-bottom: 1px solid transparent;
   cursor: pointer;
-}
-
-a:hover {
-  text-decoration: none;
 }
 
 .repo-nav .selected {

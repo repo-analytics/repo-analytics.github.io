@@ -10,7 +10,7 @@
     "react": "^16.10.1",
     "react-content-loader": "^4.3.1",
     "react-dom": "^16.10.1",
-    "react-infinite-calendar": "^2.3.1",
+    "react-github-btn": "^1.0.6",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
     "react-trend": "^1.2.5",

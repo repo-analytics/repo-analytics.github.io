@@ -5,11 +5,19 @@
 
 .home-hero {
   text-align: center;
-  padding: 30px 10px;
-  /* padding-bottom: 1px; */
-  border-radius: 3px!important;
-  /* box-shadow: 0 3px 6px rgba(0,0,0,.05); */
-  background-image: linear-gradient(180deg,hsla(0,0%,100%,0) 50%,#fff),linear-gradient(180deg,#eaf5ff 32%,#f6fff8);
+  padding: 30px 10px 130px 10px;;
+  background: url(https://raw.githubusercontent.com/timqian/images/master/20191013133125.gif),white;
+  background-position: left -55px bottom -35px;
+  background-size: 200px;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #dfe2e5;
+  position: relative;
+}
+
+.home-github-btn {
+  position: absolute;
+  left: 75px;
+  bottom: 45px;
 }
 
 .home-slogan {
@@ -45,17 +53,24 @@
   line-height: 1.5;
 }
 
+.home-feature-description a:hover {
+  text-decoration: underline;
+}
+
 .home-signin-btn {
   /* background-color: #24292e; */
   border-radius: 3px;
   background-color: #2ebc4f;
   border: none;
-  padding: 10px 20px;
+  padding: 20px 40px;
   font-size: 16px;
   font-weight: 550;
   cursor: pointer;
   color: white;
-  margin: 20px;
+}
+
+.home-signin-btn:hover {
+  background-color: #2ba046;
 }
 
 .home-hr {

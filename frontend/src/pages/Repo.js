@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import http from '../utils/http';
 import RepoLoader from "../components/RepoLoader";
-import ProjectCard from '../components/ProjectCard';
 import './User.css';
-import userSignedIn from '../utils/userSignedIn';
 import VisitChart from '../components/VisitChart';
 import CloneChart from '../components/CloneChart';
 import './Repo.css';
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css';
+import Footer from '../components/Footer';
 
 function Repo ({ match }) {
   const username = match.params.username;
@@ -53,6 +50,8 @@ function Repo ({ match }) {
         { isLoading ? <RepoLoader/> : ''}
         { trafficData.views ? <VisitChart trafficData={trafficData}/>  : ''}
         { trafficData.clones ? <CloneChart trafficData={trafficData}/>  : ''}
+
+        <Footer />
       </div>
     </div>
   );
