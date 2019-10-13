@@ -28,6 +28,7 @@ header {
   color: #fff;
   white-space: nowrap;
   cursor: pointer;
+  user-select: none;
 }
 
 .header-link:hover {
