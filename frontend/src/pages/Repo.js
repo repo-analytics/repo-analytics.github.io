@@ -35,22 +35,66 @@ function Repo ({ match }) {
             </a>
           </h1>
           <nav className="repo-nav">
-            <a href className="selected">Traffics</a>
+            <a href className="selected">Traffic</a>
             <a href>Star analytics</a>
           </nav>
         </div>
       </div>
       <div className="repo-container">
-        {trafficData.repoCreatedAt ? 
-          <div className="dates-container">
-            <p>Updated at {trafficData.date}</p>
-            <p>Recoding analytics since {trafficData.repoCreatedAt.slice(0, 10)}</p>
-          </div> 
-          : ''}
+        {
+          trafficData.repoCreatedAt ? 
+            <div className="dates-container">
+              <p>Updated at {trafficData.date}</p>
+              <p>Recoding analytics since {trafficData.repoCreatedAt.slice(0, 10)}</p>
+            </div> 
+            : ''
+        }
         { isLoading ? <RepoLoader/> : ''}
-        { trafficData.views ? <VisitChart trafficData={trafficData}/>  : ''}
-        { trafficData.clones ? <CloneChart trafficData={trafficData}/>  : ''}
-
+        { trafficData.views ? <VisitChart views={trafficData.views}/>  : ''}
+        { trafficData.clones ? <CloneChart clones={trafficData.clones}/>  : ''}
+        { !trafficData.referrers ? '' : 
+          <div className="repo-ref-paths-container">
+            <div className="one-ref-path">
+              <h3 className="chart-container-header"> Referring sites </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Site</th>
+                    <th>Views</th>
+                    <th>Unique visitors</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trafficData.referrers.map(referrer => <tr>
+                    <td>{referrer.referrer}</td>
+                    <td>{referrer.count}</td>
+                    <td>{referrer.uniques}</td>
+                  </tr>)}
+                </tbody>
+              </table>
+            </div>
+            <div className="one-ref-path">
+              <h3 className="chart-container-header"> Popular content </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Content</th>
+                    <th>Views</th>
+                    <th>Unique visitors</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trafficData.paths.map(path => <tr>
+                    <td><a href={`https://github.com/${repo}${path.path}`}>{path.path}</a></td>
+                    <td>{path.count}</td>
+                    <td>{path.uniques}</td>
+                  </tr>)}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
+        
         <Footer />
       </div>
     </div>

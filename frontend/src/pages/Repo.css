@@ -63,3 +63,50 @@
   margin: 0;
   padding: 2px 0;
 }
+
+.repo-ref-paths-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.one-ref-path {
+  width: 300px;
+  max-width: 430px;
+  flex-grow: 100;
+  flex-shrink: 0;
+  flex-basis: 1;
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+}
+
+table {
+  width: 100%;
+  color: rgb(88, 96, 105);
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead {
+  background-color: rgb(246, 248, 250);
+}
+
+tr:nth-child(even){background-color: rgba(246, 248, 250, 0.4);}
+
+td, th {
+  padding: 8px;
+  text-align: left;
+}
+
+td {
+  word-break: break-word;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+td a:hover {
+  text-decoration: underline;
+}

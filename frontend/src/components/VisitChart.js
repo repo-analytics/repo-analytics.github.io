@@ -2,16 +2,14 @@ import React, { useEffect } from 'react';
 import chartXkcd from 'chart.xkcd';
 import './VisitChart.css';
 
-const VisitChart = ({ trafficData }) => {
-  const viewsArr = trafficData.views;
-
-  const totalViewsData = viewsArr.map(views => ({
-    x: views.timestamp,
-    y: views.count,
+const VisitChart = ({ views }) => {
+  const totalViewsData = views.map(view => ({
+    x: view.timestamp,
+    y: view.count,
   }));
-  const uniqueViewsData = viewsArr.map(views => ({
-    x: views.timestamp,
-    y: views.uniques,
+  const uniqueViewsData = views.map(view => ({
+    x: view.timestamp,
+    y: view.uniques,
   }));
   useEffect(() => {
     const svg = document.querySelector('.visit-chart');

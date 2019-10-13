@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import chartXkcd from 'chart.xkcd';
 
-const VisitChart = ({ trafficData }) => {
-  const clonesArr = trafficData.clones;
+const VisitChart = ({ clones }) => {
 
-  const totalViewsData = clonesArr.map(clones => ({
-    x: clones.timestamp,
-    y: clones.count,
+  const totalViewsData = clones.map(clone => ({
+    x: clone.timestamp,
+    y: clone.count,
   }));
-  const uniqueViewsData = clonesArr.map(clones => ({
-    x: clones.timestamp,
-    y: clones.uniques,
+  const uniqueViewsData = clones.map(clone => ({
+    x: clone.timestamp,
+    y: clone.uniques,
   }));
   useEffect(() => {
     const svg = document.querySelector('.clone-chart');
