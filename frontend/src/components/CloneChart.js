@@ -33,7 +33,7 @@ const VisitChart = ({ trafficData }) => {
         timeFormat: 'MM/DD/YYYY',
         dotSize: 0.5,
         dataColors: ['#28a745', '#005cc5'],
-        unxkcdify: true
+        // unxkcdify: true // TODO: configuable
       },
     });
   }, []);
