@@ -85,7 +85,7 @@ function Repo ({ match }) {
                 </thead>
                 <tbody>
                   {trafficData.paths.map(path => <tr>
-                    <td><a href={`https://github.com/${repo}${path.path}`}>{path.path}</a></td>
+                    <td><a href={`https://github.com/${path.path}`}>{path.path}</a></td>
                     <td>{path.count}</td>
                     <td>{path.uniques}</td>
                   </tr>)}
