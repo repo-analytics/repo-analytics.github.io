@@ -1,32 +1,60 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import chartXkcd from 'chart.xkcd';
 import './ProjectCard.css';
-import Trend from 'react-trend';
 
 
-const ProjectCard = ({repo, createdAt, username, visitData}) => (
-  <div className="card-container">
-    <div className="card-description">
-      <a href={`/${repo}`}>{repo}</a>
-    </div>
+const ProjectCard = ({repo, createdAt, username, views}) => {
 
-    <div className="project-trend">
-      <Trend
-        smooth
-        autoDraw
-        autoDrawDuration={2000}
-        autoDrawEasing="ease-out"
-        data={[0,2,5,9,5,10,3,5,0,0,1,8,2,9,0]}
-        gradient={['#d7ecad', '#9cd696', '#2ebc4f']}
-        radius={0}
-        strokeWidth={1.7}
-        strokeLinecap={'square'}
-      />
-    </div>
+  const ref = useRef();
+  const totalViewsData = views.map(view => ({
+    x: view.timestamp,
+    y: view.count,
+  }));
+  const uniqueViewsData = views.map(view => ({
+    x: view.timestamp,
+    y: view.uniques,
+  }));
+  
+  useEffect(() => {
+    if (ref.current) {
+      new chartXkcd.XY(ref.current, {
+        // title: 'Visitors',
+        data: {
+          datasets: [{
+            label: 'Views',
+            data: totalViewsData,
+          }, {
+            label: 'Unique Visitors',
+            data: uniqueViewsData,
+          }],
+        },
+        options: {
+          xTickCount: 3,
+          yTickCount: 4,
+          legendPosition: chartXkcd.config.positionType.upLeft,
+          showLine: true,
+          timeFormat: 'MM/DD/YYYY',
+          dotSize: 0.5,
+          dataColors: ['#28a745', '#005cc5'],
+          // unxkcdify: true
+        },
+      });
+    }
+  }, []);
 
-    <div className="card-footer">
-      Recoding analytics since {createdAt.slice(0, 10)}
-    </div>
+  return   <div className="card-container">
+  <div className="card-description">
+    <a href={`/${repo}`}>{repo}</a>
   </div>
-);
+
+  <div className="project-trend">
+    <svg ref={ref}></svg>
+  </div>
+
+  <div className="card-footer">
+    Recoding analytics since {createdAt.slice(0, 10)}
+  </div>
+</div>
+};
 
 export default ProjectCard;

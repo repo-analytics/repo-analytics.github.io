@@ -37,7 +37,7 @@ function User ({ match }) {
       <div className="home-examples">
         {
           repos.map(repo => <div className="home-box">
-            <ProjectCard repo={repo.repo.S} username={repo.username.S} createdAt={repo.createdAt.S}/>
+            <ProjectCard repo={repo.repo} username={repo.username} createdAt={repo.createdAt} views={repo.views}/>
           </div>)
         }
 

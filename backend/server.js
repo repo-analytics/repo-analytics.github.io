@@ -79,11 +79,40 @@ app.get(
   },
 );
 
+/**
+ * {
+ *   repos: [{
+ *     username: 'timqian',
+ *     repo: 'timqian/chart.xkcd',
+ *     createdAt: '',
+ *     views: [{"timestamp":"2019-09-29T00:00:00Z","count":11,"uniques":8}],
+ *   }]
+ * }
+ */
 app.get('/user/:username', async (req, res) => {
   const username = req.params.username;
   const repos = await RepoDao.getAllForUser({ username });
+  const promiseArr = repos.map(repo => {
+    const repoPath = repo.repo.S;
+    // FIXME: getting unnecessary data - add another method
+    return TrafficDao.getLatest({ repo: repoPath });
+  });
+
+  const traffics = await Promise.all(promiseArr);
+  const returnRepos = repos.map((repo, i) => {
+
+    const obj = {
+      username: repo.username.S,
+      repo: repo.repo.S,
+      createdAt: repo.createdAt.S,
+      views: JSON.parse(traffics[i].views.S),
+    }
+
+    return obj;
+  });
+
   res.json({
-    repos,
+    repos: returnRepos,
   })
 });
 

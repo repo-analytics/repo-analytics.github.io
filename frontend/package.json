@@ -13,7 +13,6 @@
     "react-github-btn": "^1.0.6",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
-    "react-trend": "^1.2.5",
     "remixicon": "^2.0.0"
   },
   "scripts": {

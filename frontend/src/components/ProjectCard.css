@@ -13,9 +13,10 @@
 }
 
 .project-trend {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  /* TODO: for chart.xkcd: config padding; margin*/
+  height: 100%;
+  position: relative;
+  top: -26px;
 }
 
 .card-description a {
