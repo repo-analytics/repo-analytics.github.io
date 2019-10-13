@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "deploy": "up deploy produciton"
+    "deploy": "up deploy production"
   },
   "keywords": [],
   "author": "",
