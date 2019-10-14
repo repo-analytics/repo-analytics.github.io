@@ -1,4 +1,4 @@
-# [repo-traffic.github.io](https://repo-traffic.github.io)
+# [repo-analytics.github.io](https://repo-analytics.github.io)
 
 Thorough analytics for your GitHub repos
 
