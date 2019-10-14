@@ -1,4 +1,4 @@
-# [repo-analytics.github.io](https://repo-analytics.github.io)
+# [Repo Analytics](https://repo-analytics.github.io)
 
 Thorough analytics for your GitHub repos
 
