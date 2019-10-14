@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .add-new a {
@@ -46,7 +47,6 @@ button:focus {
 }
 
 
-
 .add-repo-btn.isLoading {
   background-color: #888;
   pointer-events: none;
@@ -62,4 +62,16 @@ button:focus {
   50% { transform: rotate(0deg); }
   75% { transform: rotate(-10deg); }
   100% { transform: rotate(0deg); }
+}
+
+.add-new-footer {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+
+}
+
+.add-new-footer a {
+  font-size: 14px;
+  font-weight: 500;
 }

@@ -29,11 +29,16 @@ const AddRepo = () => {
 
   return <div className="home-box">
     <div className="add-new">
+
       <input placeholder={`e.g. ${localUser.username}/repo-name`} className="repo-input" onChange={(e) => setRepoPath(e.target.value)}></input>
       <button className={`${isLoading ? 'isLoading' : ''} add-repo-btn`} onClick={() => addRepo()}>
         {isLoading ? 'Adding' : 'Add repo'}
       </button>
+      <div className="add-new-footer">
+        <a href="https://github.com/repo-analytics/repo-analytics.github.io/issues/1">Pricing</a>
+      </div>
     </div>
+
   </div>;
 }
 

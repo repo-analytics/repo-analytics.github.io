@@ -46,6 +46,7 @@ export default function App() {
               <div className="dropdown-content">
                 <a href={`/${user.username}`}>Your profile</a>
                 <a href={`/${user.username}`}>Add repo</a>
+                <a href="https://github.com/repo-analytics/repo-analytics.github.io/issues/1">Pricing</a>
                 <hr/>
                 <a href onClick={signout} >Sign out</a>
               </div>
