@@ -33,6 +33,11 @@ const getRepoTraffic = async ({repoPath}) => {
   return res.data.traffic;
 }
 
+const getRepoStars = async ({repoPath}) => {
+  const res = await http.get(`/repo/${repoPath}/stars`);
+  return res.data;
+}
+
 const addRepo = async ({username, repoPath, token}) => {
   const res = await http.post('/repo/add', {
     username, repoPath, token,
@@ -43,5 +48,10 @@ const addRepo = async ({username, repoPath, token}) => {
 export default {
   getUserRepos,
   getRepoTraffic,
+  getRepoStars,
   addRepo,
 };
+
+
+// test
+// getRepoStars({repoPath: 'timqian/star-history'})

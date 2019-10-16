@@ -5,10 +5,12 @@
   font-size: 25px;
 }
 
-.user-github-link {
+.user-link {
   font-weight: 500;
 }
 
-.ri-github-line {
-  font-size: 17px;
+.user-github-link {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 3px;
 }

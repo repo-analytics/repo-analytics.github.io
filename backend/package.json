@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.8.16",
     "express": "^4.17.1",
+    "graphql-request": "^1.8.2",
     "jwt-simple": "^0.5.6",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0"

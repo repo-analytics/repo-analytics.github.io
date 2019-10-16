@@ -40,7 +40,7 @@ function Home ({user}) {
           <div className="home-feature">
             <h4 className="home-feature-title">Understand your users</h4>
             <p className="home-feature-description">
-              Analyze history, locations of Star, Clone, Fork data of your GitHub Repos
+              Analyze history, locations of Star, Watch... data of your GitHub Repos
             </p>
           </div>
           <div className="home-feature">

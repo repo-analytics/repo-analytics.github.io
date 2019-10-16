@@ -7,6 +7,7 @@ const jwt = require('jwt-simple');
 const UserDao = require('./db/User');
 const RepoDao = require('./db/Repo');
 const TrafficDao = require('./db/Traffic');
+const StarDao = require('./db/Star');
 const config = require('./secret.json');
 const trafficDateRangeToDateArr = require('./utils/trafficDateRangeToDateArr');
 const getUniqueListBy = require('./utils/getUniqueListBy');
@@ -44,7 +45,8 @@ passport.use(
       const {
         id, username, displayName, emails, photos,
       } = profile;
-      const user = await UserDao.get({ username });
+      // FIXME: add updatedAt to record user relogin
+      // const user = await UserDao.get({ username });
       const userToSave = {
         username,
         displayName,
@@ -52,9 +54,9 @@ passport.use(
         email: emails.filter(email => email.primary === true)[0].value,
         photo: photos[0].value,
       };
-      if (!user) {
+      // if (!user) {
         await UserDao.put(userToSave);
-      }
+      // }
       profile.accessToken = accessToken
       cb(null, profile);
     },
@@ -176,6 +178,21 @@ app.get('/repo/:org/:repo', async (req, res) => {
 
 });
 
+app.get('/repo/:org/:repo/stars', async (req, res) => {
+  const org = req.params.org;
+  const repo = req.params.repo;
+  const repoPath = `${org}/${repo}`; 
+  const starRes = await StarDao.get({repo: repoPath});
+
+  const starObj = {
+    repo: starRes.repo.S,
+    totalCount: starRes.totalCount.S,
+    history: JSON.parse(starRes.history.S),
+    locations: JSON.parse(starRes.locations.S),
+    updatedAt: starRes.updatedAt.S,
+  }
+  res.json(starObj);
+});
 
 app.post('/repo/add', async (req, res) => {
   const { username, repoPath, token } = req.body;
@@ -192,7 +209,15 @@ app.post('/repo/add', async (req, res) => {
     return;
   }
 
-  // 2. test if user being able to get traffic of the repo
+  // 2. test if user already have 3 repos TODO: remove after finishing billing part
+
+  const userCurrentRepos = await RepoDao.getAllForUser({username});
+  if (userCurrentRepos.length >= 3) {
+    res.status(400).json('Currenly we only support importing 3 repos, see pricing page for more info');
+    return;
+  }
+
+  // 3. test if user being able to get traffic of the repo
   const user = await UserDao.get({ username });
   const githubToken = user.accessToken.S;
   try {
@@ -207,8 +232,6 @@ app.post('/repo/add', async (req, res) => {
     console.log(e)
     res.status(400).json('github token permission insufficient');
   }
-
-
 })
 
 app.get('/', (req, res) => {

@@ -61,11 +61,11 @@ export default function App() {
       <Route exact path="/" >
         <Home user={user}/>
       </Route>
-      <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
+      <Route path="/about" component={About} />
 
       <Route exact path="/:username" component={User} />
-      <Route exact path="/:username/:repo" component={Repo} />
+      <Route path="/:username/:repo" component={Repo} />
     </Router>
   );
 }

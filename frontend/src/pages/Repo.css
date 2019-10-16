@@ -77,9 +77,7 @@
   flex-shrink: 0;
   flex-basis: 1;
   background-color: #fff;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 table {

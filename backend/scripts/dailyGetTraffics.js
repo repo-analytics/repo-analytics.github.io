@@ -45,32 +45,37 @@ async function run() {
 
   // ---- 3. query and store to db ----
   for(let i = 0; i < repoArr.length; i++) {
-    const repo = repoArr[i];
-    console.log('Fetching', repo.repo);
-    const http = axios.create({
-      baseURL: 'https://api.github.com/',
-      timeout: 10000,
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${repo.accessToken}`,
-      },
-    });
-    const viewsPromise = http.get(`/repos/${repo.repo}/traffic/views`);
-    const clonesPromise = http.get(`/repos/${repo.repo}/traffic/clones`);
-    const referrersPromise = http.get(`/repos/${repo.repo}/traffic/popular/referrers`);
-    const pathsPromise = http.get(`/repos/${repo.repo}/traffic/popular/paths`);
-    
-    const trafficRes = await Promise.all([viewsPromise, clonesPromise, referrersPromise, pathsPromise]);
-    
-    await TrafficDao.put({
-      repo: repo.repo,
-      date: dateStr,
-      views: trafficRes[0].data.views,
-      clones: trafficRes[1].data.clones,
-      referrers: trafficRes[2].data,
-      paths: trafficRes[3].data,
-      repoCreatedAt: repo.createdAt,
-    });
+    try {
+      const repo = repoArr[i];
+      console.log('Fetching', repo.repo);
+      const http = axios.create({
+        baseURL: 'https://api.github.com/',
+        timeout: 10000,
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `token ${repo.accessToken}`,
+        },
+      });
+      const viewsPromise = http.get(`/repos/${repo.repo}/traffic/views`);
+      const clonesPromise = http.get(`/repos/${repo.repo}/traffic/clones`);
+      const referrersPromise = http.get(`/repos/${repo.repo}/traffic/popular/referrers`);
+      const pathsPromise = http.get(`/repos/${repo.repo}/traffic/popular/paths`);
+      
+      const trafficRes = await Promise.all([viewsPromise, clonesPromise, referrersPromise, pathsPromise]);
+      
+      await TrafficDao.put({
+        repo: repo.repo,
+        date: dateStr,
+        views: trafficRes[0].data.views,
+        clones: trafficRes[1].data.clones,
+        referrers: trafficRes[2].data,
+        paths: trafficRes[3].data,
+        repoCreatedAt: repo.createdAt,
+      });
+    } catch (error) {
+      console.log(error.response.message);
+    }
+
   }
 }
 
