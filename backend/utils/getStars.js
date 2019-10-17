@@ -1,5 +1,5 @@
 const { GraphQLClient } = require('graphql-request');
-const guess = require('./guessCountryFromAddress');
+const guess = require('../scripts/guessCountryFromAddress');
 
 const UserDao = require('../db/User');
 

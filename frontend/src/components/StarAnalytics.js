@@ -22,6 +22,8 @@ const Traffic = ({ repoPath }) => {
 
   if (isLoading || !starData) {
     return <div className="repo-container">
+      <h2>Here we analyse history and location statics of your repo. </h2>
+      <p>You might need to wait for a minute or two and refresh the page if your repo have too many stars and it is the first time you open this page</p>
       <RepoLoader/>
     </div>
   }
@@ -31,14 +33,21 @@ const Traffic = ({ repoPath }) => {
       <p>Updated at {starData.updatedAt.slice(0,10)}</p>
     </div> 
 
-    
-
     <div className="repo-ref-paths-container">
       <div className="one-ref-path">
-        <StarHistoryChart repo={starData.repo} history={starData.history}/>
+        {
+          Object.keys(starData.history).length !== 0 
+            ? <StarHistoryChart repo={starData.repo} history={starData.history}/>
+            : ''
+        }
       </div>
       <div className="one-ref-path">
-        <StarLocationChart locations={starData.locations}/>
+      {
+          Object.keys(starData.locations).length !== 0 
+            ? <StarLocationChart locations={starData.locations}/>
+            : ''
+        }
+
       </div>
     </div>
 

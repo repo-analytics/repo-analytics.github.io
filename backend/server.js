@@ -12,6 +12,7 @@ const config = require('./secret.json');
 const trafficDateRangeToDateArr = require('./utils/trafficDateRangeToDateArr');
 const getUniqueListBy = require('./utils/getUniqueListBy');
 const getTrafficOfRepoAndSave = require('./utils/getTrafficOfRepoAndSave');
+const getStars = require('./utils/getStars');
 
 const app = express();
 
@@ -47,13 +48,18 @@ passport.use(
       } = profile;
       // FIXME: add updatedAt to record user relogin
       // const user = await UserDao.get({ username });
+
+      // console.log(emails)
       const userToSave = {
         username,
-        displayName,
+
         accessToken,
         email: emails.filter(email => email.primary === true)[0].value,
         photo: photos[0].value,
       };
+
+      if (displayName) userToSave.displayName = displayName;
+
       // if (!user) {
         await UserDao.put(userToSave);
       // }
@@ -226,7 +232,17 @@ app.post('/repo/add', async (req, res) => {
     await RepoDao.put({
       username,
       repo: repoPath,
-    })
+    });
+
+    // add star analytics(async)
+    getStars(username, repoPath)
+      .then(res => {
+        StarDao.put({
+          repo: repoPath,
+          ...res
+        });
+      });
+
     res.json('ok');
   } catch (e) {
     console.log(e)

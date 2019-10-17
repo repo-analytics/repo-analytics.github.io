@@ -47,17 +47,31 @@ async function get({ username }) {
 async function put({
   username, email, accessToken, displayName, photo,
 }) {
-  await dynamodb.putItem({
-    TableName: 'repo-analytics-user',
-    Item: {
-      username: { S: username },
-      email: { S: email },
-      accessToken: { S: accessToken },
-      displayName: { S: displayName },
-      photo: { S: photo },
-      createdAt: { S: new Date().toISOString() },
-    },
-  }).promise();
+  if (displayName) {
+    await dynamodb.putItem({
+      TableName: 'repo-analytics-user',
+      Item: {
+        username: { S: username },
+        email: { S: email },
+        accessToken: { S: accessToken },
+        displayName: { S: displayName },
+        photo: { S: photo },
+        createdAt: { S: new Date().toISOString() },
+      },
+    }).promise();
+  } else {
+    await dynamodb.putItem({
+      TableName: 'repo-analytics-user',
+      Item: {
+        username: { S: username },
+        email: { S: email },
+        accessToken: { S: accessToken },
+        photo: { S: photo },
+        createdAt: { S: new Date().toISOString() },
+      },
+    }).promise(); 
+  }
+
 }
 
 async function scan() {

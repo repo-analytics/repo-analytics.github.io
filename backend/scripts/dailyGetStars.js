@@ -1,5 +1,5 @@
 const RepoDao = require('../db/Repo');
-const getStars = require('./getStars');
+const getStars = require('../utils/getStars');
 const StarDao = require('../db/Star');
 
 const get = async () => {
