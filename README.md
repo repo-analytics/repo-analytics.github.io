@@ -1,3 +1,6 @@
+[![](https://raw.githubusercontent.com/timqian/images/master/20191017115402.gif)](https://repo-analytics.github.io)
+[![](https://raw.githubusercontent.com/timqian/images/master/20191017114556.png)](https://repo-analytics.github.io)
+
 # [Repo Analytics](https://repo-analytics.github.io)
 
 Thorough analytics for your GitHub repos
