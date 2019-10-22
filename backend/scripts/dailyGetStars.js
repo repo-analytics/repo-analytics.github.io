@@ -7,15 +7,24 @@ const get = async () => {
 
   for (const repo of repos) {
     const repoPath = repo.repo.S;
+    // if (repoPath !== 'NervJS/taro') continue;
     const repoOwner = repo.username.S;
-    console.log('going to fetch', repoOwner, repoPath)
-    const res = await getStars(repoOwner, repoPath);
-    console.log('going to store', repoOwner, repoPath);
-    await StarDao.put({
-      repo: repoPath,
-      ...res
-    });
-    console.log('success', repoOwner, repoPath);
+    try {
+      console.log('going to fetch', repoOwner, repoPath)
+      const res = await getStars(repoOwner, repoPath);
+      console.log('going to store', repoOwner, repoPath);
+      await StarDao.put({
+        repo: repoPath,
+        ...res
+      });
+      console.log('success', repoOwner, repoPath);
+    } catch (error) {
+      if(error.response) {
+        console.log(error.response.message);
+      } else {
+        console.log(error.message)
+      }
+    }
   }
 }
 

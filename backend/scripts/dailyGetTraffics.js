@@ -45,12 +45,13 @@ async function run() {
 
   // ---- 3. query and store to db ----
   for(let i = 0; i < repoArr.length; i++) {
+    const repo = repoArr[i];
     try {
-      const repo = repoArr[i];
+      // if (!['airyland/vux', 'ZhuPeng/mp-transform-public', 'amorist/platelet', 'timqian/star-history'].includes(repo.repo)) continue;
       console.log('Fetching', repo.repo);
       const http = axios.create({
         baseURL: 'https://api.github.com/',
-        timeout: 10000,
+        timeout: 30000,
         headers: {
           'Accept': 'application/vnd.github.v3+json',
           'Authorization': `token ${repo.accessToken}`,
@@ -73,7 +74,11 @@ async function run() {
         repoCreatedAt: repo.createdAt,
       });
     } catch (error) {
-      console.log(error.response.message);
+      if(error.response) {
+        console.log(error.response.message);
+      } else {
+        console.log(error.message)
+      }
     }
 
   }

@@ -25,7 +25,7 @@ passport.use(
     {
       clientID: config.github.clientID,
       clientSecret: config.github.clientSecret,
-      scope: 'user:email,repo',
+      scope: 'user:email,public_repo',
       callbackURL: 'https://repo-analytics.t9t.io/auth/github/callback',
     },
     async (accessToken, refreshToken, profile, cb) => {

@@ -1,5 +1,5 @@
 const { GraphQLClient } = require('graphql-request');
-const guess = require('../scripts/guessCountryFromAddress');
+const guess = require('./guessCountryFromAddress');
 
 const UserDao = require('../db/User');
 
@@ -86,8 +86,9 @@ const getStars = async (username, repoPath) => {
 
   updateRes(data.repository.stargazers);
 
+  let pageCount = 0
   while(data.repository.stargazers.pageInfo.hasNextPage) {
-    console.log(data.repository.stargazers.pageInfo)
+    console.log('page count', pageCount + 1);
     const query2 = `
     {
       repository(owner: "${repoOwner}", name: "${repoName}") {
@@ -109,6 +110,7 @@ const getStars = async (username, repoPath) => {
     `;
     data = await graphQLClient.request(query2);
     updateRes(data.repository.stargazers); 
+    pageCount++;
   }
 
   res.updatedAt = new Date().toISOString();
