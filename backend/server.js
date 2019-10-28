@@ -175,8 +175,10 @@ app.get('/repo/:org/:repo', async (req, res) => {
     trafficObj.views.unshift(...views);
   }
 
-  trafficObj.clones = getUniqueListBy(trafficObj.clones, 'timestamp');
-  trafficObj.views = getUniqueListBy(trafficObj.views, 'timestamp');
+  trafficObj.clones = getUniqueListBy(trafficObj.clones, 'timestamp')
+    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+  trafficObj.views = getUniqueListBy(trafficObj.views, 'timestamp')
+    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   res.json({
     traffic: trafficObj,
