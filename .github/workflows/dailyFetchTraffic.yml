@@ -16,7 +16,7 @@ jobs:
         node-version: 12.x
     - name: npm install
       run: npm install
-      working-directory: backend
+      working-directory: ../../backend
     - name: fetch
       run: node scripts/dailyGetTraffics.js
-      working-directory: backend
+      working-directory: ../../backend
