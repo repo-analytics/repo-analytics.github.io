@@ -3,7 +3,7 @@ name: daily-traffic-data-fetching
 
 on:
   schedule:
-  - cron:  '*/3 * * * *'
+  - cron:  1 0 * * * *'
 
 jobs:
   fetch-traffics:
@@ -20,4 +20,7 @@ jobs:
       working-directory: ./backend
     - name: fetch
       run: node scripts/dailyGetTraffics.js
+      env:
+        awsAccessKeyId: ${{ secrets.awsAccessKeyId }}
+        awsSecretAccessKey: ${{ secrets.awsSecretAccessKey }}
       working-directory: ./backend
