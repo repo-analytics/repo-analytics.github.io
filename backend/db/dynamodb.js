@@ -1,7 +1,12 @@
-const fs = require('fs');
 const AWS = require('aws-sdk');
 
-const config = require('../secret.json');
+let config = {};
+
+try {
+  config = require('../secret.json');
+} catch (error) {
+  console.log('no secret json, on github action')
+}
 
 const awsConfig = {
   region: 'us-east-1',
