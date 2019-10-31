@@ -64,15 +64,15 @@ async function run() {
       
       const trafficRes = await Promise.all([viewsPromise, clonesPromise, referrersPromise, pathsPromise]);
       
-      await TrafficDao.put({
-        repo: repo.repo,
-        date: dateStr,
-        views: trafficRes[0].data.views,
-        clones: trafficRes[1].data.clones,
-        referrers: trafficRes[2].data,
-        paths: trafficRes[3].data,
-        repoCreatedAt: repo.createdAt,
-      });
+      // await TrafficDao.put({
+      //   repo: repo.repo,
+      //   date: dateStr,
+      //   views: trafficRes[0].data.views,
+      //   clones: trafficRes[1].data.clones,
+      //   referrers: trafficRes[2].data,
+      //   paths: trafficRes[3].data,
+      //   repoCreatedAt: repo.createdAt,
+      // });
     } catch (error) {
       if(error.response) {
         console.log(error.response.message);
