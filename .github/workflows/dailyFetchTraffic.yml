@@ -3,7 +3,7 @@ name: daily-traffic-data-fetching
 
 on:
   schedule:
-  - cron:  '*/2 * * * *'
+  - cron:  '*/5 * * * *'
 
 jobs:
   fetch-traffics:
@@ -14,8 +14,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - name: npm install and fetch
+    - name: npm install
       working-directory: ./backend
-      run: |
-        npm ci
-        node scripts/dailyGetTraffics.js
+      run: npm install
+    - name: fetch
+      working-directory: ./backend
+      run: node scripts/dailyGetTraffics.js
