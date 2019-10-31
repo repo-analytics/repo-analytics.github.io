@@ -3,7 +3,7 @@ name: daily-traffic-data-fetching
 
 on:
   schedule:
-  - cron:  '1 0 * * * *'
+  - cron:  "1 0 * * * *"
 
 jobs:
   fetch-traffics:
