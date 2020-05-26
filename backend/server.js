@@ -220,8 +220,8 @@ app.post('/repo/add', async (req, res) => {
   // 2. test if user already have 3 repos TODO: remove after finishing billing part
 
   const userCurrentRepos = await RepoDao.getAllForUser({username});
-  if (userCurrentRepos.length >= 3) {
-    res.status(400).json('Currenly we only support importing 3 repos, see pricing page for more info');
+  if (userCurrentRepos.length >= 3 && !config.patrons.includes(username) ) {
+    res.status(400).json('Currently we only support importing 3 repos, see pricing page for more info');
     return;
   }
 
