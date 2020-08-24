@@ -52,7 +52,7 @@ const ProjectCard = ({repo, createdAt, username, views}) => {
   </div>
 
   <div className="card-footer">
-    Recoding analytics since {createdAt.slice(0, 10)}
+    Recording analytics since {createdAt.slice(0, 10)}
   </div>
 </div>
 };
