@@ -31,7 +31,7 @@ const Traffic = ({ repoPath }) => {
   return (<div className="repo-container">
     <div className="dates-container">
       <p>Updated at {trafficData.date}</p>
-      <p>Recoding analytics since {trafficData.repoCreatedAt.slice(0, 10)}</p>
+      <p>Recording analytics since {trafficData.repoCreatedAt.slice(0, 10)}</p>
     </div> 
 
     <div className="repo-ref-paths-container">
